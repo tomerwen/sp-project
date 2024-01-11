@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request, jsonify
+from pymongo import MongoClient
+client = MongoClient('mongodb://root:example@mongodb:27017/userdata')
+db = client['userdata']
+collection = db['users']
 
 app = Flask(__name__)
 
@@ -8,14 +12,14 @@ def landing_page():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = {
+    user_data = {
         'name': request.form.get('name'),
         'email': request.form.get('email'),
         'company': request.form.get('company')
     }
-    # Here, you can perform any server-side processing with the form data
-    # For simplicity, I'm just printing the data to the console
-    print(data)
+    
+    collection.insert_one(user_data)
+
 
     return render_template("submitted.html")
 

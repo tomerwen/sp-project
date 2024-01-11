@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sp-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sp-project
+  template:
+    metadata:
+      labels:
+        app: sp-project
+    spec:
+      containers:
+        - name: sp-project
+          #image: jaanuk/sp-project:latest
+          image: test
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sp-project-service
+spec:
+  selector:
+    app: sp-project
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
