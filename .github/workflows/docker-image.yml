@@ -18,12 +18,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: Build the Docker image and test it
       run: docker build . --file Dockerfile --tag ${{env.IMAGE_NAME}}
     
     - name: Run the conatainer
       run: docker run -d -p 5000:5000 ${{env.IMAGE_NAME}}
 
+    - name: check containers
+      run: docker ps -a
 
     - name: Test connection to localhost:5000
       run: |
