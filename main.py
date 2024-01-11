@@ -1,62 +1,23 @@
-from flask import Flask
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
 @app.route("/")
 def landing_page():
-    HTML = """<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            text-align: center;
-        }
+    return render_template('index.html')
 
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = {
+        'name': request.form.get('name'),
+        'email': request.form.get('email'),
+        'company': request.form.get('company')
+    }
+    # Here, you can perform any server-side processing with the form data
+    # For simplicity, I'm just printing the data to the console
+    print(data)
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
+    return render_template("submitted.html")
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Tomer Wendel's landing page</h1>
-
-    <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Your Name" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-        <label for="company">Company:</label>
-        <input type="text" id="company" name="company" placeholder="Your Company" required>
-
-        <button type="submit">Send</button>
-    </form>
-
-</body>
-</html>
-"""
-    return HTML
+if __name__ == '__main__':
+    app.run(debug=True)
