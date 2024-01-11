@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: sp-project
-          #image: jaanuk/sp-project:latest
-          image: test
+          image: jaanuk/sp-project:latest
           ports:
             - containerPort: 5000
 ---
