@@ -18,7 +18,7 @@ jobs:
       run: docker build . --file Dockerfile --tag jaanuk/sp-project:latest
     
     - name: Run the conainer
-      run: docker run -d -p 5000:5000 jaanuk/sp-project:*
+      run: docker run -d -p 5000:5000 jaanuk/sp-project:latest
 
     - name: Push the container
       run: docker push jaanuk/sp-project:latest
