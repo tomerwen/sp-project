@@ -27,7 +27,7 @@ jobs:
 
     - name: Test connection to localhost:5000
       run: |
-        response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5000)
+        response=$(curl -v -s -o /dev/null -w "%{http_code}" http://localhost:5000)
         if [ "$response" -eq 200 ]; then
           echo "Website is working (HTTP 200 OK)"
         else
